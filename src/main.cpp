@@ -116,9 +116,9 @@ void readSensors(){
     if (digitalRead(sensorPins[i]) == LOW) {
       if (millis() - lastmillisUpdate < DEBOUNCE_DELAY) { return; }
       lastmillisUpdate = millis();
+      if (DEBUG) {Serial.print("Sensor "); Serial.print(i+1); Serial.println(" triggered");}
       showStep(i+1);
       ledStatus[i] = 1;
-      if (DEBUG) {Serial.print("Sensor "); Serial.print(i+1); Serial.println(" triggered");}
     }
   }
 }
