@@ -1,3 +1,14 @@
+/**
+ * Written by : 	Anoof Chappangathil
+ * Email      :   anoofdoc@gmail.com
+ * Phone      :   +971 50 762 1347
+ * Company    :   Interactive Technical Service LLC
+ * Date       :   08-10-2024
+ * Description:   This code is written for a 16 step Staircase lighting system. 
+ *                The system has 16 steps and each step has a sensor. 
+ *                When a sensor is triggered, the corresponding step will light up for 5 seconds and then turn off.
+ */
+
 #define DEBUG           1
 
 #define SENSOR_PIN_1    31
@@ -60,7 +71,7 @@ void debugInputPins(){
 
 void showStep(int step){
   for (int i = ((step*STEP_LENGTH)-STEP_LENGTH); i < step*STEP_LENGTH; i++) {
-    strip.setPixelColor(i, RED);
+    strip.setPixelColor(i, WHITE);
   }
   strip.show();
   ledStripClearTime[step-1] = millis();
