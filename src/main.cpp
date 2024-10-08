@@ -11,24 +11,24 @@
 
 #define DEBUG           1
 
-#define SENSOR_PIN_1    31
-#define SENSOR_PIN_2    32
-#define SENSOR_PIN_3    33 
-#define SENSOR_PIN_4    34
-#define SENSOR_PIN_5    35
-#define SENSOR_PIN_6    36
-#define SENSOR_PIN_7    37
-#define SENSOR_PIN_8    38
-#define SENSOR_PIN_9    39
-#define SENSOR_PIN_10   40
-#define SENSOR_PIN_11   41
-#define SENSOR_PIN_12   42
-#define SENSOR_PIN_13   43
-#define SENSOR_PIN_14   44
-#define SENSOR_PIN_15   45
-#define SENSOR_PIN_16   46
+#define SENSOR_PIN_1    30
+#define SENSOR_PIN_2    31
+#define SENSOR_PIN_3    32 
+#define SENSOR_PIN_4    33
+#define SENSOR_PIN_5    34
+#define SENSOR_PIN_6    35
+#define SENSOR_PIN_7    36
+#define SENSOR_PIN_8    37
+#define SENSOR_PIN_9    38
+#define SENSOR_PIN_10   39
+#define SENSOR_PIN_11   40
+#define SENSOR_PIN_12   41
+#define SENSOR_PIN_13   42
+#define SENSOR_PIN_14   43
+#define SENSOR_PIN_15   44
+#define SENSOR_PIN_16   45
 
-#define LED_PIN         8
+#define LED_PIN         49
 
 #define DEBOUNCE_DELAY    500
 #define STRIP_CLEAR_DELAY 5000
@@ -113,7 +113,7 @@ void checkClearStrip(){
 
 void readSensors(){
   for (int i = 0; i < NUM_OF_STEPS; i++) {
-    if (digitalRead(sensorPins[i]) == LOW) {
+    if (digitalRead(sensorPins[i]) == HIGH) {
       if (millis() - lastmillisUpdate < DEBOUNCE_DELAY) { return; }
       lastmillisUpdate = millis();
       if (DEBUG) {Serial.print("Sensor "); Serial.print(i+1); Serial.println(" triggered");}
