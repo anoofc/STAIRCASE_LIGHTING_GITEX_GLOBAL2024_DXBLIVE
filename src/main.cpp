@@ -9,7 +9,7 @@
  *                When a sensor is triggered, the corresponding step will light up for 5 seconds and then turn off.
  */
 
-#define DEBUG           1
+#define DEBUG           0
 
 #define SENSOR_PIN_1    30
 #define SENSOR_PIN_2    31
@@ -37,18 +37,19 @@
 
 
 #define RED             255, 0, 0
-#define WHITE           255, 255, 255
+#define WHITE           255, 120, 120
 
 #include <Arduino.h>
 #include <Adafruit_NeoPixel.h>  
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_OF_STEPS*STEP_LENGTH, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-uint32_t lastmillisUpdate = 0;
+// uint32_t lastmillisUpdate = 0;
 
 uint8_t   sensorPins[NUM_OF_STEPS]        = {SENSOR_PIN_1, SENSOR_PIN_2, SENSOR_PIN_3, SENSOR_PIN_4, SENSOR_PIN_5, SENSOR_PIN_6, SENSOR_PIN_7, SENSOR_PIN_8, SENSOR_PIN_9, SENSOR_PIN_10, SENSOR_PIN_11, SENSOR_PIN_12, SENSOR_PIN_13, SENSOR_PIN_14, SENSOR_PIN_15, SENSOR_PIN_16};
 uint32_t  ledStripClearTime[NUM_OF_STEPS] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 bool      ledStatus[NUM_OF_STEPS]         = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+uint32_t  lastmillisUpdate[NUM_OF_STEPS]  = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void io_setup() {
   strip.begin();
@@ -114,8 +115,8 @@ void checkClearStrip(){
 void readSensors(){
   for (int i = 0; i < NUM_OF_STEPS; i++) {
     if (digitalRead(sensorPins[i]) == HIGH) {
-      if (millis() - lastmillisUpdate < DEBOUNCE_DELAY) { return; }
-      lastmillisUpdate = millis();
+      if (millis() - lastmillisUpdate[i] < DEBOUNCE_DELAY) { return; }
+      lastmillisUpdate[i] = millis();
       if (DEBUG) {Serial.print("Sensor "); Serial.print(i+1); Serial.println(" triggered");}
       showStep(i+1);
       ledStatus[i] = 1;
